@@ -31,9 +31,49 @@ Before you run the pipeline you also need to install:
 3. [psipred](https://github.com/psipred/psipred)
 
 ## Parameters and configuration file
+The main program hh-py-suite.py has the following parameters: 
 
-## Typical usage examples
+  --input INPUT         Path to the input file
+  
+  --output OUTPUT       Path to the output file
+  
+  --format FORMAT       Format of a 3d structure file (pdb or mmCif), default: mmCif
+  
+  --hhconsensus HHCONSENSUS
+                        Path to the requirement hhconsensus
+                        
+  --reformat REFORMAT   Path to the requirement reformat 
+  
+  --makeblastdb MAKEBLASTDB
+                        Path to the requirement makeblastdb 
+                        
+  --hhfilter HHFILTER   Path to the requirement hhfilter
+  
+  --psiblast PSIBLAST   Path to the requirement psiblast
+  
+  --chkparse CHKPARSE   Path to the requirement chkparse
+  
+  --psipred PSIPRED     Path to the requirement psipred
+  
+  --psipred_weights PSIPRED_WEIGHTS
+                        Path to the requirement psipred_weights
+                        
+  --psipred_weights2 PSIPRED_WEIGHTS2
+                        Path to the requirement psipred_weights2
+                        
+  --psipred_weights3 PSIPRED_WEIGHTS3
+                        Path to the requirement psipred_weights3
+                        
+  --psipred_weights_p2 PSIPRED_WEIGHTS_P2
+                        Path to the requirement psipred_weights_p2
+                        
+  --psipass2 PSIPASS2   Path to the requirement psipass2
+  
+  --mkdssp MKDSSP       Path to the requirement mkdssp
+  
+  The parameters can either be passed directly using command line or written into a config file. Each line of the file should contain name of the requirement and its path in a format: name:: path (see config file example in the data folder). If a parameter is specified both in a config file and via command line, the command line option will be used. 
 
+## Typical usage
+` python3 hh-py-suite.py --input sequence.fas --output sequence_extended.aln`
 ## Examplary files
-Examples of an input fasta file and an output file can be found in "Data" directory
-
+Examples of an input fasta file, config file and output file can be found in the data directory
