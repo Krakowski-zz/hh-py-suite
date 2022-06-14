@@ -6,7 +6,7 @@ The main goal is to make the scripts compatible with new versions of [psipred](h
 The scripts were developed by Kamil Krakowski, Anna Semik and Natalia Rutecka as a part 
 of "Architecture of large bioinformatics projects" course.
 
-##Introduction
+## Introduction
 HH-suite is a software package for highly sensitive sequence searching and sequence alignment.
 It uses a concise representation of MSAs, called profile HMMS, which represent both
 the query sequence and the database sequences. It can also use extra information about the
