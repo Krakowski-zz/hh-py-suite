@@ -1,5 +1,9 @@
 """
-Todo: add description here
+Python pipeline with functionalities of adds.pl script from hh-suite package.
+It supports psipred 4.0 and mmcif 4.0.
+Given an input .fas or .aln file the pipeline generates a file containing psipred secondary structure,
+ddsp annotation, geometrical features and solvent exposure of proteins as well as confidence values.
+The output can be used to detect homologous proteins using HHSearch.
 
 Authors: Kamil Krakowski, Natalia Rutecka, Anna Semik
 """
@@ -22,7 +26,11 @@ def parse_arguments():
     """ Parses arguments from config file and from command line.
     If there is a conflict, the command line parameter will be used."""
     config_args = read_conf_file()
-    parser = argparse.ArgumentParser(description="")  # todo: add description here
+    parser = argparse.ArgumentParser(description="""
+                Given an input .fas or .aln file the pipeline generates a file containing psipred secondary structure,
+                ddsp annotation, geometrical features and solvent exposure of proteins as well as confidence values.
+                The output can be used to detect homologous proteins using HHSearch from hh-suite package.
+                """)
     parser.add_argument("--input", required=True, help="Path to the input file")
     parser.add_argument("--output", required=True, help="Path to the output file")
     parser.add_argument("--format", required=False, default="mmCif", help="Format of 3d structure file (pdb or mmCif)")

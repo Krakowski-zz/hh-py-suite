@@ -155,5 +155,4 @@ def generate_horiz(psipass2, w2, file_psipred, file_ss):
         sys.exit()
     result = output.decode("ASCII")
     sequence, predicted_structure, confidence = parse_horiz(result)
-    # TODO: make sequence line length compatible with output format
     return sequence, predicted_structure, confidence
