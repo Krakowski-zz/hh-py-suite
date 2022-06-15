@@ -32,7 +32,7 @@ Before you run the pipeline you also need to install:
 
 You can also use conda environment:
 
-`conda install -c bioconda hhsuite`
+`conda install -c bioconda hhsuite blast`
 
 `conda install -c conda-forge biopython`
 
