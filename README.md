@@ -31,9 +31,12 @@ Before you run the pipeline you also need to install:
 3. [psipred](https://github.com/psipred/psipred)
 
 You can also use conda environment:
-conda install -c bioconda hhsuite
-conda install -c salilab dssp
-conda install -c biocore psipred
+
+`conda install -c bioconda hhsuite`
+
+`conda install -c salilab dssp`
+
+`conda install -c biocore psipred`
 
 ## Parameters and configuration file
 The main program hh-py-suite.py has the following parameters: 
