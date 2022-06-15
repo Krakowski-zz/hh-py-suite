@@ -4,7 +4,7 @@ The main goal is to make the scripts compatible with new versions of [psipred](h
 [dssp](https://github.com/PDB-REDO/dssp) (4.0) and in result support mmCif format of the spatial protein structure.
 
 The scripts were developed by Kamil Krakowski, Anna Semik and Natalia Rutecka as a part 
-of "Architecture of large bioinformatics projects" course.
+of the "Architecture of large projects in bioinformatics" course.
 
 ## Introduction
 HH-suite is a software package for highly sensitive sequence searching and sequence alignment.
@@ -19,7 +19,7 @@ needs to be preprocessed. This was initially done using scripts reformat.pl and
 addss.pl from HH-Suite package. Unfortunately, the scripts haven't been updated for 3
 years and are currently incompatible with most of the software that they use. Our goal 
 is to restore their functionalities and create a pipeline that will allow to process
-sequences in a way that will unable to later perform a sensitive sequence searching.
+sequences in a way that will enable to later perform a sensitive sequence searching.
 
 ## Installation and requirements
 The pipeline was written in Python 3.10 and uses the libraries specified in 
@@ -81,4 +81,4 @@ The main program hh-py-suite.py has the following parameters:
 ## Typical usage
 ` python3 hh-py-suite.py --input sequence.fas --output sequence_extended.aln`
 ## Examplary files
-Examples of an input fasta file, config file and output file can be found in the data directory
+Examples of an input fasta file, config file and output file can be found in the data directory.
