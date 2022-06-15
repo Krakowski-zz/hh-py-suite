@@ -9,7 +9,7 @@ Authors: Kamil Krakowski, Natalia Rutecka, Anna Semik
 """
 import argparse
 from calculate_psipred import *
-from calculate_dssp import run_dssp
+from calculate_dssp import *
 
 
 def read_conf_file(pth=os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__))) + "/config.cfg"):
@@ -34,6 +34,7 @@ def parse_arguments():
     parser.add_argument("--input", required=True, help="Path to the input file")
     parser.add_argument("--output", required=True, help="Path to the output file")
     parser.add_argument("--format", required=False, default="mmCif", help="Format of 3d structure file (pdb or mmCif)")
+    parser.add_argument("--M", required=False, default="first", help="")
     requirements = ["hhconsensus", "reformat", "makeblastdb", "hhfilter", "psiblast", "chkparse", "psipred",
                     "psipred_weights", "psipred_weights2", "psipred_weights3", "psipred_weights_p2", "psipass2", "mkdssp"]
     for req in requirements:
@@ -68,36 +69,41 @@ def set_temp_paths(input_path):
     tmp["db"] = filepath
     tmp["dir"] = dirname
     tmp["dssp_file"] = filepath + ".dssp"
+    tmp["dssp_seq"] = filepath + ".dssp_seq"
     return tmp
 
 
-def save_output(outpath, sequence, predicted_structure, confidence, file_a3m, dssp_file):
+def save_output(outpath, predicted_structure, confidence, file_a3m, dssp):
     with open(outpath, 'w') as out_f:
-        out_f.write(">Consensus\n")
-        out_f.write(sequence + '\n')
+        out_f.write(">ss_dssp\n")
+        out_f.write(dssp+ '\n')
+        print("Dssp file was succesfully added")
         out_f.write(">ss_pred\n")
         out_f.write(predicted_structure + '\n')
+        print("Psipred secondary structure was successfully added to the multialignment file")
         out_f.write(">ss_conf\n")
         out_f.write(confidence + '\n')
         out_f.write(open(file_a3m).read())
-        print("Psipred secondary structure was successfully added to the multialignment file")
-        out_f.write(open(dssp_file).read())
-        print("Dssp file was succesfully added")
+
+
 
 def main():
     args = parse_arguments()
     tmp = set_temp_paths(args.input)
     copy_input(args.input, tmp["input_copy"])
-    reformat_input(args.input, args.reformat, tmp["input_copy"], tmp["file_a3m"])
+    reformat_input(args.input, args.reformat, tmp["input_copy"], tmp["file_a3m"], args.M)
     count_consensus(args.hhconsensus, tmp["file_a3m"], tmp["file_consensus"], tmp["file_a3m_with_consensus"])
     strip_alignment(tmp["input_copy"], tmp["file_fastaseqs"])
     make_blast_db(args.makeblastdb, tmp["file_fastaseqs"], tmp["db"])
     count_pssm(args.psiblast, tmp["db"], tmp["file_chk"], tmp["file_consensus"], tmp["file_psiblast_out"])
     parse_pssm(args.chkparse, tmp["file_chk"], tmp["file_mtx"])
     run_psipred(args.psipred, args.psipred_weights, args.psipred_weights2, args.psipred_weights3, tmp["file_mtx"], tmp["file_ss"])
-    seq, predicted_str, conf = generate_horiz(args.psipass2, args.psipred_weights2, tmp["file_psipred_out"], tmp["file_ss"])
-    run_dssp(args.mkdssp, tmp["file_consensus"], args.format, tmp["dir"], tmp["dssp_file"])
-    save_output(args.output, seq, predicted_str, conf, tmp["file_a3m"], tmp["dssp_file"])
+    seq, predicted_str, conf = generate_horiz(args.psipass2, args.psipred_weights_p2, tmp["file_psipred_out"], tmp["file_ss"])
+    qrange = run_dssp(args.mkdssp, tmp["file_consensus"], args.format, tmp["dir"], tmp["dssp_file"])
+    dssp_seq, dssp_final = parse_dssp(tmp["dssp_file"], qrange)
+    open(tmp["dssp_seq"], 'w').write(dssp_seq)
+    #adjust_dssp_to_alignment(tmp["dssp_seq"], tmp["file_consensus"])
+    save_output(args.output, predicted_str, conf, tmp["file_a3m"], dssp_final)
     # os.remove(tmp["dir"])
 
 

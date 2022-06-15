@@ -40,7 +40,7 @@ def copy_input(input_path, input_copy):
     shutil.copy2(input_path, input_copy)
 
 
-def reformat_input(input_path, reformat_script, input_copy, file_a3m):
+def reformat_input(input_path, reformat_script, input_copy, file_a3m, M):
     """ Reformats input to a3m format"""
     available_formats = ["fasta", "fas", "aln"]
     filename, ext = os.path.splitext(input_path)
@@ -48,7 +48,7 @@ def reformat_input(input_path, reformat_script, input_copy, file_a3m):
 
     if ext in available_formats:
         print(
-            subprocess.check_output([reformat_script, ext, "a3m", input_copy, file_a3m, "-M first"]).decode('ascii'))
+            subprocess.check_output([reformat_script, ext, "a3m", input_copy, file_a3m, "-M ", M]).decode('ascii'))
 
     else:
         raise Exception(
@@ -64,7 +64,8 @@ def parse_horiz(horiz_str):
         part = part.strip()
         if not part or part.startswith("#"):
             continue
-        conf, pred, seq, ind = part.split('\n')
+        components = part.split('\n')
+        conf, pred, seq = components[0], components[1], components[2]
         sequence += seq[6:]
         predicted_structure += pred[6:]
         confidence += conf[6:]
