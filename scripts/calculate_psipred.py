@@ -69,7 +69,7 @@ def parse_horiz(horiz_str):
         sequence += seq[6:]
         predicted_structure += pred[6:]
         confidence += conf[6:]
-    return sequence, predicted_structure, confidence
+    return sequence, '\n'.join([predicted_structure[x:x+100] for x in range(0, len(predicted_structure), 100)]), '\n'.join([confidence[x:x+100] for x in range(0, len(confidence), 100)])
 
 
 def strip_alignment(filein, fileout):

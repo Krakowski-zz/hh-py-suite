@@ -99,10 +99,9 @@ def main():
     parse_pssm(args.chkparse, tmp["file_chk"], tmp["file_mtx"])
     run_psipred(args.psipred, args.psipred_weights, args.psipred_weights2, args.psipred_weights3, tmp["file_mtx"], tmp["file_ss"])
     seq, predicted_str, conf = generate_horiz(args.psipass2, args.psipred_weights_p2, tmp["file_psipred_out"], tmp["file_ss"])
-    qrange = run_dssp(args.mkdssp, tmp["file_consensus"], args.format, tmp["dir"], tmp["dssp_file"])
-    dssp_seq, dssp_final = parse_dssp(tmp["dssp_file"], qrange)
+    run_dssp(args.mkdssp, tmp["file_consensus"], args.format, tmp["dir"], tmp["dssp_file"])
+    dssp_seq, dssp_final = parse_dssp(tmp["dssp_file"])
     open(tmp["dssp_seq"], 'w').write(dssp_seq)
-    #adjust_dssp_to_alignment(tmp["dssp_seq"], tmp["file_consensus"])
     save_output(args.output, predicted_str, conf, tmp["file_a3m"], dssp_final)
     # os.remove(tmp["dir"])
 
