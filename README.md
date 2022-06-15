@@ -34,6 +34,8 @@ You can also use conda environment:
 
 `conda install -c bioconda hhsuite`
 
+`conda install -c conda-forge biopython`
+
 `conda install -c salilab dssp`
 
 `conda install -c biocore psipred`
