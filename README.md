@@ -79,6 +79,6 @@ The main program hh-py-suite.py has the following parameters:
   The parameters can either be passed directly using command line or written into a config file. Each line of the file should contain name of the requirement and its path in a format: name:: path (see config file example in the data folder). If a parameter is specified both in a config file and via command line, the command line option will be used. 
 
 ## Typical usage
-` python3 hh-py-suite.py --input sequence.fas --output sequence_extended.aln`
+` python3 hh-py-suite.py --input sequences.fas --output sequences_extended.aln`
 ## Examplary files
 Examples of an input fasta file, config file and output file can be found in the data directory.
